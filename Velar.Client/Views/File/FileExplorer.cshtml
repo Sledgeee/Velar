@@ -1,0 +1,15 @@
+﻿@model string[]
+@{
+    ViewData["Title"] = "File Explorer";
+}
+
+<div class="container py-5">
+    <ul>
+        @foreach (var path in Model)
+        {
+            var filePath = path.Replace("wwwroot", "");
+            var fileName = filePath.Replace("/Files/", "");
+            <li><a href="@filePath" target="_blank">@fileName</a></li>
+        }
+    </ul>
+</div>

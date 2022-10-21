@@ -193,60 +193,7 @@
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    @if (ViewData["CurrentPage"]?.ToString() == "Home")
-                                    {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">Home</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                    }
-                                </li>
-                                <li class="nav-item">
-                                    @if (ViewData["CurrentPage"]?.ToString() == "Shop")
-                                    {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">Shop</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Shop" asp-action="Index">Shop</a>
-                                    }
-                                </li>
-                                <li class="nav-item">
-                                    @if (ViewData["CurrentPage"]?.ToString() == "AboutUs")
-                                    {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">About Us</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Home" asp-action="About">About Us</a>
-                                    }
-                                </li>
-                                <li class="nav-item">
-                                    @if (ViewData["CurrentPage"]?.ToString() == "ContactUs")
-                                    {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">Contact Us</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
-                                    }
-                                </li>
-                                <li class="nav-item">
-                                    @if (ViewData["CurrentPage"]?.ToString() == "Faq")
-                                    {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">FAQ</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Home" asp-action="Faq">FAQ</a>
-                                    }
-                                </li>
-                            </ul>
-                        </div>
+                        <partial name="Blocks/NavBar"/>
                     </nav>
                 </div>
             </div>
