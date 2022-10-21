@@ -1,0 +1,22 @@
+﻿@model Velar.Core.Models.User.PersonalInfo
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <ul>
+            <li>@Model.UserName</li>
+            <li>@Model.Email</li>
+            <li>@Model.FirstName</li>
+            <li>@Model.LastName</li>
+        </ul>
+    </div>
+    <div class="row">
+        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="FileUpload">
+            <label for="i-file">Select file</label>
+            <input type="file" name="file" id="i-file"/>
+            <button name="submit" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
