@@ -1,15 +1,36 @@
-﻿@model string[]
+﻿@model List<string>
 @{
     ViewData["Title"] = "File Explorer";
 }
 
+<style scoped>
+    table, th, td {
+        border: 1px solid;
+        border-collapse: collapse;
+        padding: 10px;
+        font-size: 18px;
+    }
+</style>
+
 <div class="container py-5">
-    <ul>
-        @foreach (var path in Model)
-        {
-            var filePath = path.Replace("wwwroot", "");
-            var fileName = filePath.Replace("/Files/", "");
-            <li><a href="@filePath" target="_blank">@fileName</a></li>
-        }
-    </ul>
+    <div class="d-flex justify-content-center">
+        <table>
+            <tr>
+                <th>File Name</th>
+                <th></th>
+            </tr>
+            @foreach (var fileName in Model)
+            {
+                <tr>
+                    <td>@fileName</td>
+                    <td>
+                        <a asp-area="" asp-controller="File"
+                           asp-action="DownloadFile" asp-route-fileName="@fileName">
+                            Download
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>

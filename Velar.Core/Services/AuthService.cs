@@ -55,7 +55,7 @@ namespace Velar.Core.Services
             {
                 AllowRefresh = true,
                 IsPersistent = true,
-                ExpiresUtc = remember ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddMinutes(30)
+                ExpiresUtc = remember ? DateTimeOffset.UtcNow.AddDays(30) : DateTimeOffset.UtcNow.AddMinutes(30)
             };
             await _signInManager.SignInAsync(user, authProps);
         }

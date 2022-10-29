@@ -42,16 +42,18 @@
                         <h1>@Model</h1>
                         @if (Model == 404)
                         {
-                            <h2>Oops! Page Not Found!</h2>
-                            <p>The page you are looking for does not exist. It might have been moved or deleted.</p>
+                            <h2>@(Context.Request.Cookies["lang"] == "en" ? "Oops! Page Not Found" : "Упс! Сторінка не знайдена")</h2>
+                            <p>@(Context.Request.Cookies["lang"] == "en" 
+                                   ? "The page you are looking for does not exist. It might have been moved or deleted"
+                                   : "Сторінка, яку ви шукаєте, не існує. Вона може бути переміщеною або видаленою")</p>
                         }
                         else
                         {
-                            <h2>Something went wrong!</h2>
-                            <p>Please, try again.</p>
+                            <h2>@(Context.Request.Cookies["lang"] == "en" ? "Something went wrong" : "Щось пішло не так")</h2>
+                            <p>@(Context.Request.Cookies["lang"] == "en" ? "Please, try again" : "Будь-ласка, спробуйте ще раз")</p>
                         }
                         <div class="button">
-                            <a asp-area="" asp-action="Index" class="btn">Back to Home</a>
+                            <a asp-area="" asp-action="Index" class="btn">@(Context.Request.Cookies["lang"] == "en" ? "Back to Home" : "Повернутись на головну")</a>
                         </div>
                     </div>
                 </div>

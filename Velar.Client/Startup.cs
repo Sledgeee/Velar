@@ -1,10 +1,13 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Velar.Client.Middlewares;
@@ -28,18 +31,6 @@ namespace Velar.Client
             services.AddEntityFrameworkDbContext(Configuration);
             services.AddRepositories();
             services.AddVelarServices();
-            services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/auth/login";
-                    options.LogoutPath = "/auth/logout";
-                });
-            services.AddMvc();
-            services.AddLogging();
-            services.AddCors();
-            services.AddControllersWithViews();
-
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.AllowedUserNameCharacters = null;
@@ -47,6 +38,35 @@ namespace Velar.Client
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/auth/login";
+                options.LogoutPath = "/auth/logout";
+                options.AccessDeniedPath = "/auth/login";
+                options.ReturnUrlParameter = "returnUrl";
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddControllersWithViews().AddViewLocalization();
+            services.AddMvc();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddLogging();
+            services.AddCors();
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("uk")
+                };
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
             });
         }
 
@@ -63,15 +83,16 @@ namespace Velar.Client
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects("/error/{0}");
+            app.UseRequestLocalization();
+            app.UseRequestLogging();
+
+            app.UseStatusCodePagesWithRedirects("/error?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
-
-            app.UseMiddleware<RequestLoggingMiddleware>();
 
             var cookiePolicyOptions = new CookiePolicyOptions
             {
@@ -89,6 +110,9 @@ namespace Velar.Client
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "Default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllers();
             });
         }

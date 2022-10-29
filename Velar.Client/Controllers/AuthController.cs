@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +24,6 @@ namespace Velar.Client.Controllers
             _authService = authService;
         }
 
-        [Route("auth/login")]
         public IActionResult Login()
         {
             try
@@ -37,15 +35,14 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
         [HttpPost]
-        [Route("auth/proceed-login")]
-        public async Task<IActionResult> ProceedLogin(string email, string password)
+        public async Task<IActionResult> ProceedLogin(string email, string password, string returnUrl = "/")
         {
             try
             {
@@ -53,10 +50,8 @@ namespace Velar.Client.Controllers
                 {
                     return View("Login", "Empty value is not acceptable");
                 }
-
-                bool remember = Request.Form["remember"] == "on";
-                await _authService.LoginAsync(email, password, remember);
-                return RedirectToAction("Index", "Home", new { area = "" });
+                await _authService.LoginAsync(email, password, Request.Form["remember"] == "on");
+                return LocalRedirect(returnUrl);
             }
             catch (UnauthorizedException e)
             {
@@ -67,13 +62,12 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
-        [Route("auth/register")]
         public IActionResult Register()
         {
             try
@@ -85,14 +79,13 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
         [HttpPost]
-        [Route("auth/proceed-register")]
         public async Task<IActionResult> ProceedRegister(string firstName, string lastName, string email, string phoneNumber, string password, string repeatPassword)
         {
             try
@@ -119,14 +112,13 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
         [Authorize]
-        [Route("auth/logout")]
         public async Task<IActionResult> Logout([FromQuery] bool isAuthenticated = false)
         {
             try
@@ -142,13 +134,13 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
-        [Route("auth/forgot-password")]
+        [Route("[controller]/forgot-password")]
         public IActionResult ForgotPassword()
         {
             try
@@ -160,13 +152,12 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
-        [Route("auth/send-reset-mail")]
         public async Task<IActionResult> SendResetMailAsync(string email)
         {
             try
@@ -183,13 +174,14 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
-        [Route("auth/reset-password")]
+        [Route("[controller]/reset-password")]
+
         public IActionResult ResetPassword([FromQuery] string uid, [FromQuery] string token)
         {
             try
@@ -201,14 +193,13 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
         [HttpPost]
-        [Route("auth/proceed-reset-password")]
         public async Task<IActionResult> ProceedResetPassword([FromQuery] string uid, [FromQuery] string token, string password, string repeatPassword)
         {
             try
@@ -231,13 +222,13 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);
         }
 
-        [Route("mail-success")]
+        [Route("[controller]/mail-success")]
         public IActionResult MailSuccess()
         {
             try
@@ -249,7 +240,7 @@ namespace Velar.Client.Controllers
                 _logger.LogError("Error {method} {url} {dateTime} {message}",
                     HttpContext.Request?.Method,
                     HttpContext.Request?.Path.Value,
-                    DateTime.UtcNow,
+                    DateTimeOffset.UtcNow,
                     e.Message);
             }
             return View("Error", 400);

@@ -18,7 +18,6 @@ namespace Velar.Client.Controllers
             _shopService = shopService;
         }
 
-        [Route("shop/{categoryId?}")]
         public async Task<IActionResult> Index(int categoryId, [FromQuery] int page = 1)
         {
             try
@@ -33,7 +32,7 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("shop/product/{id}")]
+        [Route("[controller]/product-details")]
         public IActionResult ProductDetails(int id)
         {
             try
@@ -47,7 +46,6 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("shop/cart")]
         public IActionResult Cart()
         {
             try
@@ -61,7 +59,6 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("shop/cart/checkout")]
         public IActionResult Checkout()
         {
             try
