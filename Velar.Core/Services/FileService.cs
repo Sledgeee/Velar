@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Velar.Core.Interfaces.Services;
 
 namespace Velar.Core.Services
@@ -52,14 +48,14 @@ namespace Velar.Core.Services
 
         public byte[] DownloadFile(string rootPath, string uid, string fileName)
         {
-            string path = BuildPath(rootPath, uid) + fileName;
+            string path = $"{BuildPath(rootPath, uid)}/{fileName}";
             byte[] bytes = System.IO.File.ReadAllBytes(path);
             return bytes;
         }
 
         private string BuildPath(string rootPath, string uid)
         {
-            string path = Path.Combine(rootPath, $"Files/{uid}");
+            string path = Path.Combine(rootPath, $"files/{uid}");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
