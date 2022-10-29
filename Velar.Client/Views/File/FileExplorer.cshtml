@@ -1,4 +1,5 @@
-﻿@model List<string>
+﻿@using System.Security.Claims
+@model List<string>
 @{
     ViewData["Title"] = "File Explorer";
 }
@@ -22,7 +23,7 @@
             @foreach (var fileName in Model)
             {
                 <tr>
-                    <td>@fileName</td>
+                    <td><a href="/files/@User.FindFirstValue(ClaimTypes.NameIdentifier)/@fileName">@fileName</a></td>
                     <td>
                         <a asp-area="" asp-controller="File"
                            asp-action="DownloadFile" asp-route-fileName="@fileName">

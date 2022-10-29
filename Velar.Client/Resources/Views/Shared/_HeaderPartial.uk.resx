@@ -126,6 +126,9 @@
   <data name="ContactUsNav" xml:space="preserve">
     <value>Зв'язатись з нами</value>
   </data>
+  <data name="FaqNav" xml:space="preserve">
+    <value>ЧАПИ</value>
+  </data>
   <data name="FileExplorerSubNav" xml:space="preserve">
     <value>Файловий провідник</value>
   </data>

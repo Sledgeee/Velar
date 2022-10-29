@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims
-@inject IViewLocalizer Localizer
+﻿@inject IViewLocalizer Localizer
 
 <header class="header navbar-area">
 <div class="topbar">
@@ -144,62 +143,27 @@
                     <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                         <ul id="nav" class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                @if (ViewData["CurrentPage"]?.ToString() == "Home")
-                                {
-                                    <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">@Localizer["HomeNav"]</a>
-                                }
-                                else
-                                {
-                                    <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["HomeNav"]</a>
-                                }
+                                <a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["HomeNav"]</a>
                             </li>
                             <li class="nav-item">
-                                @if (ViewData["CurrentPage"]?.ToString() == "Shop")
-                                {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">@Localizer["ShopNav"]</a>
-                                }
-                                else
-                                {
-                                        <a asp-area="" asp-controller="Shop" asp-action="Index">@Localizer["ShopNav"]</a>
-                                }
+                                <a asp-area="" asp-controller="Shop" asp-action="Index">@Localizer["ShopNav"]</a>
                             </li>
                             <li class="nav-item">
-                                @if (ViewData["CurrentPage"]?.ToString() == "AboutUs")
-                                {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">@Localizer["AboutUsNav"]</a>
-                                }
-                                else
-                                {
-                                        <a asp-area="" asp-controller="Home" asp-action="About">@Localizer["AboutUsNav"]</a>
-                                }
+                                <a asp-area="" asp-controller="Home" asp-action="About">@Localizer["AboutUsNav"]</a>
                             </li>
                             <li class="nav-item">
-                                @if (ViewData["CurrentPage"]?.ToString() == "ContactUs")
-                                {
-                                        <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">@Localizer["ContactUsNav"]</a>
-                                }
-                                else
-                                {
-                                        <a asp-area="" asp-controller="Home" asp-action="Contact">@Localizer["ContactUsNav"]</a>
-                                }
+                                <a asp-area="" asp-controller="Home" asp-action="Contact">@Localizer["ContactUsNav"]</a>
                             </li>
                             <li class="nav-item">
-                                @if (ViewData["CurrentPage"]?.ToString() == "Faq")
-                                {
-                                    <a href="javascript:void(0)" class="active" aria-label="Toggle navigation">FAQ</a>
-                                }
-                                else
-                                {
-                                    <a asp-area="" asp-controller="Home" asp-action="Faq">FAQ</a>
-                                }
+                                <a asp-area="" asp-controller="Home" asp-action="Faq">@Localizer["FaqNav"]</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                    data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
-                                       aria-expanded="false" aria-label="Toggle navigation">@Localizer["FileNav"]</a>
+                                   aria-expanded="false" aria-label="Toggle navigation">@Localizer["FileNav"]</a>
                                 <ul class="sub-menu collapse" id="submenu-1-3">
                                     <li class="nav-item">
-                                        <a asp-area="" asp-controller="File" 
+                                        <a asp-area="" asp-controller="File"
                                            asp-action="FileExplorer">@Localizer["FileExplorerSubNav"]</a>
                                     </li>
                                     <li class="nav-item">
@@ -209,14 +173,13 @@
                             </li>
                         </ul>
                     </div>
-
                 </nav>
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-12">
 
             <div class="nav-social">
-                <h5 class="title">Follow Us:</h5>
+                <h5 class="title">@Localizer["FollowUs"]</h5>
                 <ul>
                     <li>
                         <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>

@@ -42,7 +42,7 @@ namespace Velar.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProceedLogin(string email, string password, string returnUrl = "/")
+        public async Task<IActionResult> ProceedLogin(string email, string password, string returnUrl)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Velar.Client.Controllers
                     return View("Login", "Empty value is not acceptable");
                 }
                 await _authService.LoginAsync(email, password, Request.Form["remember"] == "on");
-                return LocalRedirect(returnUrl);
+                return LocalRedirect(returnUrl ?? "/");
             }
             catch (UnauthorizedException e)
             {

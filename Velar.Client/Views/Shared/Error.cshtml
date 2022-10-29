@@ -3,6 +3,7 @@
 @{
     Layout = null;
 }
+@inject IViewLocalizer Localizer
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -42,18 +43,16 @@
                         <h1>@Model</h1>
                         @if (Model == 404)
                         {
-                            <h2>@(Context.Request.Cookies["lang"] == "en" ? "Oops! Page Not Found" : "Упс! Сторінка не знайдена")</h2>
-                            <p>@(Context.Request.Cookies["lang"] == "en" 
-                                   ? "The page you are looking for does not exist. It might have been moved or deleted"
-                                   : "Сторінка, яку ви шукаєте, не існує. Вона може бути переміщеною або видаленою")</p>
+                            <h2>@Localizer["NotFoundTitle"]</h2>
+                            <p>@Localizer["NotFoundText"]</p>
                         }
                         else
                         {
-                            <h2>@(Context.Request.Cookies["lang"] == "en" ? "Something went wrong" : "Щось пішло не так")</h2>
-                            <p>@(Context.Request.Cookies["lang"] == "en" ? "Please, try again" : "Будь-ласка, спробуйте ще раз")</p>
+                            <h2>@Localizer["OtherTitle"]</h2>
+                            <p>@Localizer["OtherText"]</p>
                         }
                         <div class="button">
-                            <a asp-area="" asp-action="Index" class="btn">@(Context.Request.Cookies["lang"] == "en" ? "Back to Home" : "Повернутись на головну")</a>
+                            <a asp-area="" asp-action="Index" class="btn">@Localizer["HomeButton"]</a>
                         </div>
                     </div>
                 </div>

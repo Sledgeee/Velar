@@ -126,6 +126,9 @@
   <data name="ContactUsNav" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="FaqNav" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
   <data name="FileExplorerSubNav" xml:space="preserve">
     <value>File Explorer</value>
   </data>
