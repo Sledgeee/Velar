@@ -12,14 +12,6 @@
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 </head>
 <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
-
     <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
@@ -29,12 +21,10 @@
         </div>
     </div>
 
-    <partial name="Blocks/Header"/>
-
+    <partial name="_HeaderPartial"/>
     @RenderBody()
-
-    <partial name="Blocks/Footer"/>
-
+    <partial name="_FooterPartial"/>
+    
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
@@ -42,6 +32,6 @@
     <script src="~/js/tiny-slider.js"></script>
     <script src="~/js/glightbox.min.js"></script>
     <script src="~/js/main.js"></script>
-@await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

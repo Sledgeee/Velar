@@ -1,12 +1,8 @@
-﻿using System.Text;
-using System;
-using System.IO;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Serilog.Context;
-using SendGrid.Helpers.Errors.Model;
-using System.Net;
+using Microsoft.AspNetCore.Builder;
 
 namespace Velar.Client.Middlewares
 {
@@ -38,6 +34,14 @@ namespace Velar.Client.Middlewares
                     context.Response?.StatusCode
                     );
             }
+        }
+    }
+
+    public static class RequestLoggingExtensions
+    {
+        public static IApplicationBuilder UseRequestLogging(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<RequestLoggingMiddleware>();
         }
     }
 }

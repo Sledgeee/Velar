@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
 namespace Velar.Client.Controllers
 {
@@ -13,7 +15,6 @@ namespace Velar.Client.Controllers
             _logger = logger;
         }
 
-        [Route("")]
         public IActionResult Index()
         {
             try
@@ -31,7 +32,7 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("about")]
+
         public IActionResult About()
         {
             try
@@ -49,7 +50,6 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("contact")]
         public IActionResult Contact()
         {
             try
@@ -67,7 +67,6 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("faq")]
         public IActionResult Faq()
         {
             try
@@ -85,9 +84,9 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        [Route("error/{code}")]
+        [Route("error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error(int code)
+        public IActionResult Error([FromQuery] int code)
         {
             try
             {
@@ -102,6 +101,16 @@ namespace Velar.Client.Controllers
                     e.Message);
             }
             return BadRequest("Something went wrong");
+        }
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+            return LocalRedirect(returnUrl);
         }
     }
 }

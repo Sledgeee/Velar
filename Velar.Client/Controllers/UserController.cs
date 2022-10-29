@@ -25,7 +25,6 @@ namespace Velar.Client.Controllers
             _userManager = userManager;
         }
 
-        [Route("profile")]
         public async Task<IActionResult> Profile()
         {
             try

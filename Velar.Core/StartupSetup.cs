@@ -17,7 +17,7 @@ namespace Velar.Core
             services.AddScoped<IConfirmEmailService, ConfirmEmailService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IShopService, ShopService>();
-            services.AddScoped<IUploadFileService, UploadFileService>();
+            services.AddScoped<IFileService, FileService>();
         }
 
         public static void ConfigureVelarSettings(this IServiceCollection services, IConfiguration configuration)
