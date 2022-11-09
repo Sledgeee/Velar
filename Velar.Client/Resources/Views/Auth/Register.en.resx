@@ -124,16 +124,16 @@
     <value>Email is not valid</value>
   </data>
   <data name="FirstNameEmpty" xml:space="preserve">
-    <value>FirstName can't be empty</value>
+    <value>First name can't be empty</value>
   </data>
   <data name="FirstNameMatches" xml:space="preserve">
-    <value>FirstName is not valid</value>
+    <value>First name is not valid</value>
   </data>
   <data name="LastNameEmpty" xml:space="preserve">
-    <value>LastName can't be empty</value>
+    <value>Last name can't be empty</value>
   </data>
   <data name="LastNameMatches" xml:space="preserve">
-    <value>LastName is not valid</value>
+    <value>Last name is not valid</value>
   </data>
   <data name="PasswordEmpty" xml:space="preserve">
     <value>Password can't be empty</value>
