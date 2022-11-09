@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Velar.Core.Entities.CategoryEntity;
 using Velar.Core.Entities.ProductEntity;
 using Velar.Core.Entities.VendorEntity;
@@ -16,6 +17,7 @@ namespace Velar.Core.Services
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Vendor> _vendorRepository;
+        private const int PageSize = 21;
 
         public ShopService(
             IRepository<Product> productRepository,
@@ -29,11 +31,8 @@ namespace Velar.Core.Services
 
         public async Task<ShopViewModel> GetProductsAsync(int categoryId, int page)
         {
-            int pageSize = 21;
-            var products =
-                (await _productRepository.GetAllAsync())
-                .OrderByDescending(x => x.ProductId);
-            var pagesCount = Convert.ToInt32(Math.Ceiling(products.Count() / (decimal)pageSize));
+            var products = await _productRepository.GetListBySpecAsync(new Products.ProductsBySpec(categoryId));
+            var pagesCount = Convert.ToInt32(Math.Ceiling(products.Count() / (decimal)PageSize));
             var vendors = await GetVendorsAsync();
             var categories = await GetCategoriesAsync();
 
@@ -41,10 +40,40 @@ namespace Velar.Core.Services
             {
                 Vendors = vendors,
                 Categories = categories,
-                Products = products.Skip((page - 1) * pageSize).Take(pageSize),
-                PageCount = pagesCount,
-                PageNumber = page,
-                PageSize = pageSize
+                Products = products.Skip((page - 1) * PageSize).Take(PageSize),
+                ShopPagination = new()
+                {
+                    PageCount = pagesCount,
+                    PageNumber = page,
+                    PageSize = PageSize,
+                    CategoryId = categoryId
+                }
+            };
+        }
+
+        public async Task<ShopViewModel> SearchProductsAsync(string searchTerm, int page)
+        {
+            var allProducts = await _productRepository.GetAllAsync();
+            searchTerm = searchTerm.ToLower();
+            var products = allProducts
+                .Where(x => x.Name.ToLower().Contains(searchTerm))
+                .OrderByDescending(x => x.ProductId);
+            var pagesCount = Convert.ToInt32(Math.Ceiling(products.Count() / (decimal)PageSize));
+            var vendors = await GetVendorsAsync();
+            var categories = await GetCategoriesAsync();
+
+            return new ShopViewModel()
+            {
+                Vendors = vendors,
+                Categories = categories,
+                Products = products.Skip((page - 1) * PageSize).Take(PageSize),
+                ShopPagination = new()
+                {
+                    PageCount = pagesCount,
+                    PageNumber = page,
+                    PageSize = PageSize,
+                    CategoryId = -1
+                }
             };
         }
 

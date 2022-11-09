@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using SendGrid.Helpers.Errors.Model;
 using Velar.Core.Entities.UserEntity;
 using Velar.Core.Interfaces.Services;
 using Velar.Core.Models.User;
+using Velar.Core.Validation;
 using Velar.Core.ViewModels;
 
 namespace Velar.Client.Controllers
@@ -68,10 +73,19 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
-        public IActionResult Register()
+        public IActionResult Register(string error)
         {
             try
             {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    var list = new List<string>();
+                    foreach (var parsedError in error.Split(" "))
+                    {
+                        list.Add(parsedError);
+                    }
+                    return View(list);
+                }
                 return View();
             }
             catch (Exception e)
@@ -86,25 +100,33 @@ namespace Velar.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProceedRegister(string firstName, string lastName, string email, string phoneNumber, string password, string repeatPassword)
+        public async Task<IActionResult> ProceedRegister(RegisterViewModel model)
         {
             try
             {
-                if (!password.Equals(repeatPassword))
+                var validator = new RegisterValidator();
+                var result = await validator.ValidateAsync(model);
+                if (!result.IsValid)
                 {
-                    return View("Register", "Passwords do not match");
+                    string errorMessage = string.Empty;
+                    foreach (var error in result.Errors)
+                    {
+                        errorMessage = $"{error.ErrorMessage} {errorMessage}";
+                    }
+
+                    return RedirectToAction("Register", new { error = errorMessage });
                 }
                 var user = new User
                 {
-                    UserName = email,
-                    Email = email,
-                    PhoneNumber = phoneNumber,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    PhoneNumber = model.Phone,
                     PhoneNumberConfirmed = true,
-                    FirstName = firstName,
-                    LastName = lastName
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
                 };
-                await _authService.RegistrationAsync(user, password, "User");
-                await _authService.LoginAsync(email, password, false);
+                await _authService.RegistrationAsync(user, model.Password, "User");
+                await _authService.LoginAsync(model.Email, model.Password, false);
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (Exception e)

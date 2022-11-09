@@ -6,5 +6,6 @@ namespace Velar.Core.Interfaces.Services
     public interface IShopService
     {
         Task<ShopViewModel> GetProductsAsync(int categoryId, int page);
+        Task<ShopViewModel> SearchProductsAsync(string searchTerm, int page);
     }
 }

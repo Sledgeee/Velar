@@ -117,35 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutUsNav" xml:space="preserve">
-    <value>About Us</value>
-  </data>
   <data name="CategoriesTitle" xml:space="preserve">
     <value>All categories</value>
-  </data>
-  <data name="ContactUsNav" xml:space="preserve">
-    <value>Contact Us</value>
-  </data>
-  <data name="FaqNav" xml:space="preserve">
-    <value>FAQ</value>
-  </data>
-  <data name="FileExplorerSubNav" xml:space="preserve">
-    <value>File Explorer</value>
-  </data>
-  <data name="FileNav" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="FileUploadSubNav" xml:space="preserve">
-    <value>Upload file</value>
   </data>
   <data name="FollowUs" xml:space="preserve">
     <value>Follow Us:</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
-  </data>
-  <data name="HomeNav" xml:space="preserve">
-    <value>Home</value>
   </data>
   <data name="Hotline" xml:space="preserve">
     <value>Hotline:</value>
@@ -155,9 +134,6 @@
   </data>
   <data name="SearchBar" xml:space="preserve">
     <value>Search</value>
-  </data>
-  <data name="ShopNav" xml:space="preserve">
-    <value>Shop</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>

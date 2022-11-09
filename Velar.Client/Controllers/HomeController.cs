@@ -3,16 +3,23 @@ using Microsoft.Extensions.Logging;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Velar.Core.Interfaces.Services;
+using Velar.Core.Validation;
+using Velar.Core.ViewModels;
 
 namespace Velar.Client.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IShopService _shopService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IShopService shopService)
         {
             _logger = logger;
+            _shopService = shopService;
         }
 
         public IActionResult Index()
@@ -32,6 +39,34 @@ namespace Velar.Client.Controllers
             return View("Error", 400);
         }
 
+        public async Task<IActionResult> Shop(int categoryId = -1, [FromQuery] int page = 1)
+        {
+            try
+            {
+                var model = await _shopService.GetProductsAsync(categoryId, page);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(Activity.Current?.Id ?? HttpContext.TraceIdentifier + $" {e.Message}");
+            }
+            return View("Error", 400);
+        }
+
+        [Route("search")]
+        public async Task<IActionResult> SearchAsync(string term = "", int page = 1)
+        {
+            try
+            {
+                var model = await _shopService.SearchProductsAsync(term, page);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(Activity.Current?.Id ?? HttpContext.TraceIdentifier + $" {e.Message}");
+            }
+            return View("Error", 400);
+        }
 
         public IActionResult About()
         {

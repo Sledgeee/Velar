@@ -1,0 +1,27 @@
+﻿@model ShopPaginationViewModel
+
+@if (Model.PageCount > 1)
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination left">
+                <ul class="pagination-list">
+                    @if (Model.PageNumber > 1)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Shop" asp-route-categoryId="@(Model.CategoryId > -1 ? Model.CategoryId : null)" asp-route-page="@(Model.PageNumber - 1)"><i class="lni lni-chevron-left"></i></a></li>
+                    }
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="@(Model.PageNumber == i ? "active" : null)">
+                            <a asp-area="" asp-controller="Home" asp-action="Shop" asp-route-categoryId="@(Model.CategoryId > -1 ? Model.CategoryId : null)" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                    @if (Model.PageNumber < Model.PageCount)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Shop" asp-route-categoryId="@(Model.CategoryId > -1 ? Model.CategoryId : null)" asp-route-page="@(Model.PageNumber + 1)"><i class="lni lni-chevron-right"></i></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
