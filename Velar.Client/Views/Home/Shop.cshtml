@@ -29,8 +29,8 @@
                 <div class="product-sidebar">
                     <div class="single-widget search">
                         <h3>Search Product</h3>
-                        <form action="#">
-                            <input type="text" placeholder="Search Here...">
+                        <form method="get" asp-controller="Home" asp-action="Search">
+                            <input type="text" name="term" placeholder="Search Here...">
                             <button type="submit"><i class="lni lni-search-alt"></i></button>
                         </form>
                     </div>
@@ -41,32 +41,11 @@
                             @foreach (var category in Model.Categories)
                             {
                                 <li>
-                                    <a asp-area="" asp-controller="Shop" asp-action="Index">
+                                    <a asp-area="" asp-controller="Home" asp-action="Shop" asp-route-categoryId="@category.CategoryId">
                                         @category.Name
                                     </a><span>(@category.Products.Count)</span>
                                 </li>
                             }
-                            @*<li>
-                                <a asp-area="" asp-action="Index">Computers & Accessories </a><span>(1138)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">Smartphones & Tablets</a><span>(2356)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">TV, Video & Audio</a><span>(420)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">Cameras, Photo & Video</a><span>(874)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">Headphones</a><span>(1239)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">Wearable Electronics</a><span>(340)</span>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-action="Index">Printers & Ink</a><span>(512)</span>
-                            </li>*@
                         </ul>
                     </div>
 
@@ -86,25 +65,25 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
                             <label class="form-check-label" for="flexCheckDefault1">
-                                $50 - $100L (208)
+                                $50 - $100 (@Model.Products.Count(x => x.Price >= 50 && x.Price <= 100))
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
                             <label class="form-check-label" for="flexCheckDefault2">
-                                $100L - $500 (311)
+                                $100 - $500 (@Model.Products.Count(x => x.Price >= 100 && x.Price <= 500))
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
                             <label class="form-check-label" for="flexCheckDefault3">
-                                $500 - $1,000 (485)
+                                $500 - $1,000 (@Model.Products.Count(x => x.Price >= 500 && x.Price <= 1000))
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
                             <label class="form-check-label" for="flexCheckDefault4">
-                                $1,000 - $5,000 (213)
+                                $1,000 and more (@Model.Products.Count(x => x.Price >= 1000))
                             </label>
                         </div>
                     </div>
@@ -121,58 +100,8 @@
                                 </label>
                             </div>
                         }
-                        @*<div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
-                            <label class="form-check-label" for="flexCheckDefault11">
-                                Apple (254)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault22">
-                            <label class="form-check-label" for="flexCheckDefault22">
-                                Bosh (39)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault33">
-                            <label class="form-check-label" for="flexCheckDefault33">
-                                Canon Inc. (128)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault44">
-                            <label class="form-check-label" for="flexCheckDefault44">
-                                Dell (310)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault55">
-                            <label class="form-check-label" for="flexCheckDefault55">
-                                Hewlett-Packard (42)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault66">
-                            <label class="form-check-label" for="flexCheckDefault66">
-                                Hitachi (217)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault77">
-                            <label class="form-check-label" for="flexCheckDefault77">
-                                LG Electronics (310)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault88">
-                            <label class="form-check-label" for="flexCheckDefault88">
-                                Panasonic (74)
-                            </label>
-                        </div>*@
                     </div>
-
                 </div>
-
             </div>
             <div class="col-lg-9 col-12">
                 <div class="product-grids-head">
@@ -190,7 +119,9 @@
                                         <option value="5">A - Z Order</option>
                                         <option value="6">Z - A Order</option>
                                     </select>
-                                    <h3 class="total-show-product">Showing: <span>@((Model.PageNumber - 1) * Model.PageSize + 1) - @(Model.PageNumber * Model.PageSize) items</span></h3>
+                                    <h3 class="total-show-product">Showing: <span>
+                                        @((Model.ShopPagination.PageNumber - 1) * Model.ShopPagination.PageSize + 1) - @(Model.ShopPagination.PageNumber * Model.ShopPagination.PageSize) items
+                                    </span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-4 col-12">
@@ -236,28 +167,7 @@
                                     </div>
                                 }
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="pagination left">
-                                        <ul class="pagination-list">
-                                            @if (Model.PageNumber > 1)
-                                            {
-                                                <li><a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"><i class="lni lni-chevron-left"></i></a></li>
-                                            }
-                                            @for (int i = 1; i <= Model.PageCount; i++)
-                                            {
-                                                <li class="@(Model.PageNumber == i ? "active" : null)">
-                                                    <a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@i">@i</a>
-                                                </li>
-                                            }
-                                            @if (Model.PageNumber < Model.PageCount)
-                                            {
-                                                <li><a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"><i class="lni lni-chevron-right"></i></a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("Pagination", Model.ShopPagination)
                         </div>
                         <div class="tab-pane fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                             <div class="row">
@@ -270,7 +180,7 @@
                                                     <div class="product-image">
                                                         <img src="@product.MediumImage" alt="#" loading="lazy">
                                                         <div class="button">
-                                                            <a asp-area="" asp-action="ProductDetails" asp-route-id="@product.ProductId" class="btn">
+                                                            <a asp-area="" asp-controller="Shop" asp-action="ProductDetails" asp-route-id="@product.ProductId" class="btn">
                                                                 <i class="lni lni-cart"></i> Add to
                                                                 Cart
                                                             </a>
@@ -299,28 +209,7 @@
                                     </div>
                                 }
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="pagination left">
-                                        <ul class="pagination-list">
-                                            @if (Model.PageNumber > 1)
-                                            {
-                                                <li><a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"><i class="lni lni-chevron-left"></i></a></li>
-                                            }
-                                            @for (int i = 1; i <= Model.PageCount; i++)
-                                            {
-                                                <li class="@(Model.PageNumber == i ? "active" : null)">
-                                                    <a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@i">@i</a>
-                                                </li>
-                                            }
-                                            @if (Model.PageNumber < Model.PageCount)
-                                            {
-                                                <li><a asp-area="" asp-controller="Shop" asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"><i class="lni lni-chevron-right"></i></a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("Pagination", Model.ShopPagination)
                         </div>
                     </div>
                 </div>

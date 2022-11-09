@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<string>
+@{
     ViewData["Title"] = "Register";
 }
+@inject IViewLocalizer Localizer
 
 <div class="breadcrumbs">
     <div class="container">
@@ -34,40 +36,47 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-fn">First Name</label>
-                                <input class="form-control" name="firstName" type="text" id="reg-fn" required>
+                                <input class="form-control" name="FirstName" type="text" id="reg-fn" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-ln">Last Name</label>
-                                <input class="form-control" name="lastName" type="text" id="reg-ln" required>
+                                <input class="form-control" name="LastName" type="text" id="reg-ln" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-email">E-mail Address</label>
-                                <input class="form-control" name="email" type="email" id="reg-email" required>
+                                <input class="form-control" name="Email" type="email" id="reg-email" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-phone">Phone Number</label>
-                                <input class="form-control" name="phoneNumber" type="text" id="reg-phone" required>
+                                <input class="form-control" name="Phone" type="text" id="reg-phone" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-pass">Password</label>
-                                <input class="form-control" name="password" type="password" id="reg-pass" required>
+                                <input class="form-control" name="Password" type="password" id="reg-pass" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="reg-pass-confirm">Confirm Password</label>
-                                <input class="form-control" name="repeatPassword" type="password" id="reg-pass-confirm" required>
+                                <input class="form-control" name="PasswordRepeat" type="password" id="reg-pass-confirm" required>
                             </div>
                         </div>
                         <div class="button">
+                            @if (Model != null)
+                            {
+                                foreach (var error in Model)
+                                {
+                                    <p class="text-danger px-0 py-2">@Localizer[error]</p>
+                                }
+                            }
                             <button class="btn" type="submit">Register</button>
                         </div>
                         <p class="outer-link">

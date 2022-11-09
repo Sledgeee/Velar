@@ -117,28 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CategoriesTitle" xml:space="preserve">
-    <value>Всі категорії</value>
+  <data name="EmailEmpty" xml:space="preserve">
+    <value>Email не може бути пустим</value>
   </data>
-  <data name="FollowUs" xml:space="preserve">
-    <value>Слідкуйте за нами:</value>
+  <data name="EmailMatches" xml:space="preserve">
+    <value>Email має недопустиме значення</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Привіт</value>
+  <data name="FirstNameEmpty" xml:space="preserve">
+    <value>Ім'я не може бути пустим</value>
   </data>
-  <data name="Hotline" xml:space="preserve">
-    <value>Гаряча лінія:</value>
+  <data name="FirstNameMatches" xml:space="preserve">
+    <value>Ім'я може містити тільки літери</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Вийти</value>
+  <data name="LastNameEmpty" xml:space="preserve">
+    <value>Прізвище не може бути пустим</value>
   </data>
-  <data name="SearchBar" xml:space="preserve">
-    <value>Я шукаю...</value>
+  <data name="LastNameMatches" xml:space="preserve">
+    <value>Прізвище може містити тільки літери</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Вхід</value>
+  <data name="PasswordEmpty" xml:space="preserve">
+    <value>Пароль не може бути пустим</value>
   </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>Реєстрація</value>
+  <data name="PasswordMatches" xml:space="preserve">
+    <value>Пароль має недопустиме значення</value>
+  </data>
+  <data name="PasswordRepeatEmpty" xml:space="preserve">
+    <value>Підтвердження паролю не може бути пустим</value>
+  </data>
+  <data name="PasswordRepeatFalse" xml:space="preserve">
+    <value>Паролі не співпадають</value>
+  </data>
+  <data name="PhoneEmpty" xml:space="preserve">
+    <value>Телефонне може бути пустим</value>
+  </data>
+  <data name="PhoneMatches" xml:space="preserve">
+    <value>Телефон може містити тільки цифри</value>
   </data>
 </root>

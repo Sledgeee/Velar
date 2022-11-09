@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Velar.Core.Entities.CartEntity;
 using Velar.Core.Entities.CartProductEntity;
 using Velar.Core.Entities.CategoryEntity;
@@ -20,6 +21,7 @@ namespace Velar.Infrastructure.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
+            //optionsBuilder.ConfigureWarnings(x => x.Throw(Relational))
             base.OnConfiguring(optionsBuilder);
         }
 

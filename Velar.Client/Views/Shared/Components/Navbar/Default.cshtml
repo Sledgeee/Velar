@@ -1,0 +1,13 @@
+﻿@model IEnumerable<string>
+@inject IViewLocalizer Localizer
+
+<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+    <ul id="nav" class="navbar-nav ms-auto">
+        @foreach (var href in Model)
+        {
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Home" asp-action="@href">@Localizer[@href]</a>
+            </li>
+        }
+    </ul>
+</div>

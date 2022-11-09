@@ -117,28 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CategoriesTitle" xml:space="preserve">
-    <value>Всі категорії</value>
+  <data name="About" xml:space="preserve">
+    <value>About Us</value>
   </data>
-  <data name="FollowUs" xml:space="preserve">
-    <value>Слідкуйте за нами:</value>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact Us</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Привіт</value>
+  <data name="Faq" xml:space="preserve">
+    <value>FAQ</value>
   </data>
-  <data name="Hotline" xml:space="preserve">
-    <value>Гаряча лінія:</value>
+  <data name="Index" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Вийти</value>
-  </data>
-  <data name="SearchBar" xml:space="preserve">
-    <value>Я шукаю...</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Вхід</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>Реєстрація</value>
+  <data name="Shop" xml:space="preserve">
+    <value>Shop</value>
   </data>
 </root>

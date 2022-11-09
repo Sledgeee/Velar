@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Velar.Client.Middlewares;
 using Velar.Core;
@@ -49,8 +48,8 @@ namespace Velar.Client
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddControllersWithViews().AddViewLocalization();
-            services.AddMvc();
+            services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization();
+            services.AddControllersWithViews();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddLogging();
             services.AddCors();

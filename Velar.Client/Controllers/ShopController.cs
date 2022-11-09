@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using Velar.Core.Interfaces.Services;
@@ -16,20 +15,6 @@ namespace Velar.Client.Controllers
         {
             _logger = logger;
             _shopService = shopService;
-        }
-
-        public async Task<IActionResult> Index(int categoryId, [FromQuery] int page = 1)
-        {
-            try
-            {
-                var model = await _shopService.GetProductsAsync(categoryId, page);
-                return View(model);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(Activity.Current?.Id ?? HttpContext.TraceIdentifier + $" {e.Message}");
-            }
-            return View("Error", 400);
         }
 
         [Route("[controller]/product-details")]
