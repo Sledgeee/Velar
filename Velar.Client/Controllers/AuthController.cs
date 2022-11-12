@@ -113,7 +113,6 @@ namespace Velar.Client.Controllers
                     {
                         errorMessage = $"{error.ErrorMessage} {errorMessage}";
                     }
-
                     return RedirectToAction("Register", new { error = errorMessage });
                 }
                 var user = new User

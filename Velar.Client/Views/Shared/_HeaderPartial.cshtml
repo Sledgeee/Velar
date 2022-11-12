@@ -1,4 +1,5 @@
-﻿@inject IViewLocalizer Localizer
+﻿@using Velar.Client.Views.Shared.Components.Navbar
+@inject IViewLocalizer Localizer
 
 <header class="header navbar-area">
 <div class="topbar">
@@ -139,7 +140,7 @@
                         <span class="toggler-icon"></span>
                         <span class="toggler-icon"></span>
                     </button>
-                    @await Component.InvokeAsync("Navbar")
+                    @await Component.InvokeAsync(typeof(NavbarViewComponent))
                 </nav>
             </div>
         </div>

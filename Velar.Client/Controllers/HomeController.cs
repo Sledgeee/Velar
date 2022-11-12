@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Localization;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Velar.Core.Interfaces.Services;
-using Velar.Core.Validation;
-using Velar.Core.ViewModels;
 
 namespace Velar.Client.Controllers
 {
